@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-clap = { version = "4.3.23", features = ["derive"] }
+clap = { version = "4.4", features = ["derive"] }
 git2 = "0.18.0"
 inquire = "0.6.2"
 phf = { version = "0.11", features = ["macros"] }
