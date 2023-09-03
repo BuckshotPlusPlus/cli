@@ -20,14 +20,20 @@ pub fn run() {
                 "Download template in progress...",
                 Color::Blue,
             );
+
             let url = match URLS.get(choice) {
                 Some(u) => u,
-                None => panic!("url cannot be found"),
+                None => return spinner.fail("Url cannot be found"),
             };
 
-            match Repository::clone(url, env::current_dir().unwrap()) {
+            let current_dir = match env::current_dir() {
+                Ok(p) => p,
+                Err(_) => return spinner.fail("Current directory cannot be found"),
+            };
+
+            match Repository::clone(url, current_dir) {
                 Ok(repo) => repo,
-                Err(e) => panic!("failed to clone: {}", e),
+                Err(e) => return spinner.fail(&format!("Failed to clone: {}", e)),
             };
 
             spinner.success("Done!");
